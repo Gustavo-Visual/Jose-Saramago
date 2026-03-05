@@ -524,6 +524,154 @@
     to { opacity: 1; }
   }
 
+  /* ─── HERO PORTRAIT ─── */
+  .hero-portrait {
+    position: absolute;
+    top: 50%;
+    right: 8vw;
+    transform: translateY(-50%);
+    width: clamp(220px, 22vw, 380px);
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(160deg, rgba(201,168,76,0.12), rgba(139,58,42,0.15));
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.8s forwards;
+    overflow: hidden;
+  }
+  .hero-portrait::before {
+    content: '';
+    width: 56px;
+    height: 56px;
+    border: 2px solid rgba(201,168,76,0.35);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-portrait::after {
+    content: 'Retrato do autor';
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.3);
+  }
+  .hero-portrait img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ─── BIO IMAGE ─── */
+  .bio-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, rgba(0,0,0,0.03), rgba(201,168,76,0.08));
+    border: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bio-image .ph-icon {
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0,0,0,0.15);
+    font-size: 16px;
+  }
+  .bio-image .ph-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.2);
+  }
+  .bio-featured .bio-image {
+    flex-shrink: 0;
+    width: 240px;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(139,58,42,0.12));
+    border-color: rgba(201,168,76,0.15);
+    margin-bottom: 0;
+  }
+  .bio-featured .bio-image .ph-icon {
+    border-color: rgba(245,240,232,0.15);
+    color: rgba(245,240,232,0.15);
+  }
+  .bio-featured .bio-image .ph-label {
+    color: rgba(245,240,232,0.2);
+  }
+  .bio-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ─── GALLERY STRIP ─── */
+  .gallery-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin: 0 -8vw;
+    background: var(--border);
+  }
+  .gallery-item {
+    aspect-ratio: 4 / 3;
+    background: var(--ink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.3s;
+  }
+  .gallery-item:hover { opacity: 0.85; }
+  .gallery-item .ph-icon {
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid rgba(201,168,76,0.2);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(201,168,76,0.2);
+    font-size: 18px;
+  }
+  .gallery-item .ph-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.2);
+  }
+  .gallery-item img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
     .bio-grid { grid-template-columns: 1fr; }
@@ -532,10 +680,14 @@
     .escrita-list { grid-template-columns: 1fr; }
     .escrita-item { border-right: none; }
     .biblio-list { columns: 1; }
+    .hero-portrait { position: relative; top: auto; right: auto; transform: none; width: 100%; aspect-ratio: 16/9; margin-top: 32px; }
+    .bio-featured .bio-image { width: 100%; }
+    .gallery-strip { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {
     .temas-grid { grid-template-columns: 1fr; }
     .biblio-list { columns: 1; }
+    .gallery-strip { grid-template-columns: 1fr; }
     footer { flex-direction: column; gap: 16px; text-align: center; }
     .footer-info { text-align: center; }
   }
@@ -550,6 +702,9 @@
   <p class="hero-year">1922 — 2010 · Azinhaga, Portugal</p>
   <h1 class="hero-title">José<br><em>Saramago</em></h1>
   <p class="hero-subtitle">Prémio Nobel da Literatura 1998 · O primeiro escritor de língua portuguesa a receber a mais alta distinção literária do mundo.</p>
+  <div class="hero-portrait">
+    <!-- Replace with: <img src="path/to/portrait.jpg" alt="José Saramago"> -->
+  </div>
   <div class="hero-bar"></div>
   <div class="hero-scroll"><div class="scroll-line"></div>Explorar</div>
 </section>
@@ -572,6 +727,11 @@
     <div class="bio-grid">
 
       <div class="bio-card">
+        <div class="bio-image">
+          <div class="ph-icon">🏡</div>
+          <span class="ph-label">Azinhaga, Ribatejo</span>
+          <!-- Replace with: <img src="path/to/azinhaga.jpg" alt="Azinhaga, terra natal"> -->
+        </div>
         <p class="bio-period">1922 — 1940s</p>
         <h3>Nascimento e Infância</h3>
         <p>Nascido a 16 de novembro de 1922 em Azinhaga, Ribatejo, numa família humilde de camponeses. O apelido "Saramago" foi erroneamente adicionado num registo civil — o nome de uma planta silvestre que acabaria por definir um dos maiores nomes da literatura universal.</p>
@@ -584,7 +744,11 @@
       </div>
 
       <div class="bio-featured">
-        <div class="bio-featured-icon">🏅</div>
+        <div class="bio-image">
+          <div class="ph-icon">🏅</div>
+          <span class="ph-label">Nobel 1998</span>
+          <!-- Replace with: <img src="path/to/nobel.jpg" alt="Cerimónia do Nobel 1998"> -->
+        </div>
         <div>
           <p class="bio-period">1998 · Estocolmo</p>
           <h3>Prémio Nobel da Literatura</h3>
@@ -599,6 +763,11 @@
       </div>
 
       <div class="bio-card">
+        <div class="bio-image">
+          <div class="ph-icon">🏝</div>
+          <span class="ph-label">Lanzarote</span>
+          <!-- Replace with: <img src="path/to/lanzarote.jpg" alt="Casa de Saramago em Lanzarote"> -->
+        </div>
         <p class="bio-period">1992 — 2010</p>
         <h3>Exílio em Lanzarote</h3>
         <p>Depois de o governo português retirar <em>O Evangelho segundo Jesus Cristo</em> de uma candidatura europeia por motivos religiosos, Saramago partiu indignado para as Ilhas Canárias. Viveu em Lanzarote com a sua companheira Pilar del Río até à morte, a 18 de junho de 2010, com 87 anos.</p>
@@ -606,6 +775,30 @@
 
     </div>
   </section>
+
+  <!-- GALLERY -->
+  <div class="gallery-strip">
+    <div class="gallery-item">
+      <div class="ph-icon">📷</div>
+      <span class="ph-label">Foto 1</span>
+      <!-- Replace with: <img src="path/to/photo1.jpg" alt=""> -->
+    </div>
+    <div class="gallery-item">
+      <div class="ph-icon">📷</div>
+      <span class="ph-label">Foto 2</span>
+      <!-- Replace with: <img src="path/to/photo2.jpg" alt=""> -->
+    </div>
+    <div class="gallery-item">
+      <div class="ph-icon">📷</div>
+      <span class="ph-label">Foto 3</span>
+      <!-- Replace with: <img src="path/to/photo3.jpg" alt=""> -->
+    </div>
+    <div class="gallery-item">
+      <div class="ph-icon">📷</div>
+      <span class="ph-label">Foto 4</span>
+      <!-- Replace with: <img src="path/to/photo4.jpg" alt=""> -->
+    </div>
+  </div>
 
   <!-- TEMAS -->
   <section class="section" id="temas">
